@@ -1,10 +1,13 @@
 import React from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import "../Style.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function () {
   return (
     <>
+      <Header />
       <Container>
         <h1
           style={{ color: "#6f42c1" }}
@@ -88,6 +91,7 @@ export default function () {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

@@ -7,10 +7,13 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function CreateUser() {
   return (
     <>
+      <Header />
       <Container>
         <h1
           style={{ color: "#6f42c1" }}
@@ -55,6 +58,7 @@ export default function CreateUser() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

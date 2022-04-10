@@ -1,18 +1,18 @@
 .btn-primary {
   color: #fff;
-  background-color: rgb(15, 82, 82);
-  border-color: rgb(15, 82, 82);
+  background-color: #3aa484;
+  border-color: #3aa484;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #6f42c1;
-  border-color: #6f42c1;
+  background-color: #673b9f;
+  border-color: #673b9f;
 }
 
 .bg {
-  background-color: rgb(15, 82, 82);
+  background-color: #673b9f;
 }
 
 .navbar {
-  background-color: rgb(15, 82, 82);
+  background-color: #673b9f;
 }
