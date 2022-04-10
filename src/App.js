@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
 import CreateUser from "./pages/CreateUser";
+import Notifications from "./pages/Notifications";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route path="/Search" component={Search} />
           <Route path="/CreateUser" component={CreateUser} />
+          <Route path="/Notifications" component={Notifications} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
       </div>
