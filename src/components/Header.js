@@ -4,7 +4,7 @@ import "../Style.css";
 
 export default function Header() {
   return (
-    <Navbar expand="lg" dark>
+    <Navbar expand="lg" dark="true">
       <Container fluid>
         <Nav className="nav">
           <Nav.Link href="#home" style={{ color: "white" }}>
