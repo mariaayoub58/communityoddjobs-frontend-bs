@@ -13,21 +13,16 @@ import Footer from "../components/Footer";
 export default function CreateJob() {
   return (
     <>
-      <Header />
+      <Header admin />
       <Container>
         <h1
           style={{ color: "#6f42c1" }}
-          className="shadow-sm  mt-5 p-3  text-center rounded"
+          className=" mt-5 p-3  text-center rounded"
         >
           Create Job
         </h1>
         <Row>
-          <Col
-            lg={5}
-            md={6}
-            sm={12}
-            className="p-5 m-auto shadow-sm rounded-lg"
-          >
+          <Col lg={5} md={6} sm={12} className="p-5 m-auto rounded-lg">
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Control className="shadow" placeholder="Employer Name" />

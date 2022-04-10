@@ -16,3 +16,10 @@
 .navbar {
   background-color: #673b9f;
 }
+
+body {
+  background-image: "url(${background})";
+  background-repeat: "no-repeat";
+  width: "250px";
+  height: "250px";
+}

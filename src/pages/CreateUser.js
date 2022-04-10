@@ -13,7 +13,7 @@ import Footer from "../components/Footer";
 export default function CreateUser() {
   return (
     <>
-      <Header />
+      <Header admin />
       <Container>
         <h1
           style={{ color: "#6f42c1" }}
