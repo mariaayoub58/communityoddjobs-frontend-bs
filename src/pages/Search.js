@@ -1,13 +1,13 @@
 import React from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import "../Style.css";
-import Header from "../components/Header";
+import Header1 from "../components/Header1";
 import Footer from "../components/Footer";
 
 export default function () {
   return (
     <>
-      <Header />
+      <Header1 />
       <Container>
         <h1
           style={{ color: "#6f42c1" }}
@@ -22,7 +22,7 @@ export default function () {
             sm={12}
             className="p-5 m-auto shadow-sm rounded-lg"
           >
-            <Card>
+            <Card className="shadow">
               <Card.Header as="h5">Job Title</Card.Header>
               <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
@@ -33,7 +33,7 @@ export default function () {
                 <Button>Apply</Button>
               </Card.Body>
             </Card>
-            <Card>
+            <Card className="shadow">
               <Card.Header as="h5">Job Title</Card.Header>
               <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
@@ -44,7 +44,7 @@ export default function () {
                 <Button>Apply</Button>
               </Card.Body>
             </Card>
-            <Card>
+            <Card className="shadow">
               <Card.Header as="h5">Job Title</Card.Header>
               <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
@@ -55,7 +55,7 @@ export default function () {
                 <Button>Apply</Button>
               </Card.Body>
             </Card>
-            <Card>
+            <Card className="shadow">
               <Card.Header as="h5">Job Title</Card.Header>
               <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
@@ -66,7 +66,7 @@ export default function () {
                 <Button>Apply</Button>
               </Card.Body>
             </Card>
-            <Card>
+            <Card className="shadow">
               <Card.Header as="h5">Job Title</Card.Header>
               <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
@@ -77,7 +77,7 @@ export default function () {
                 <Button>Apply</Button>
               </Card.Body>
             </Card>
-            <Card>
+            <Card className="shadow">
               <Card.Header as="h5">Job Title</Card.Header>
               <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
@@ -85,7 +85,7 @@ export default function () {
                   With supporting text below as a natural lead-in to additional
                   content.
                 </Card.Text>
-                <Button>Apply</Button>
+                <Button className="shadow">Apply</Button>
               </Card.Body>
             </Card>
           </Col>

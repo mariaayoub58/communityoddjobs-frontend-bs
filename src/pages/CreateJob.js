@@ -30,27 +30,37 @@ export default function CreateJob() {
           >
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Control placeholder="Employer Name" />
+                <Form.Control className="shadow" placeholder="Employer Name" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="email" placeholder="Employer Email" />
+                <Form.Control
+                  className="shadow"
+                  type="email"
+                  placeholder="Employer Email"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicJobTitle">
-                <Form.Control placeholder="Job Title" />
+                <Form.Control className="shadow" placeholder="Job Title" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicLocation">
-                <Form.Control placeholder="Location" />
+                <Form.Control className="shadow" placeholder="Location" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicDateofService">
-                <Form.Control placeholder="Date of Service" />
+                <Form.Control
+                  className="shadow"
+                  type="date"
+                  placeholder="Date of Service"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicHours">
-                <Form.Control placeholder="Hours" />
+                <Form.Control className="shadow" placeholder="Hours" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Control placeholder="Description" />
+                <Form.Control className="shadow" placeholder="Description" />
               </Form.Group>
-              <Button type="submit">Submit</Button>
+              <Button className="shadow" type="submit">
+                Submit
+              </Button>
             </Form>
           </Col>
         </Row>

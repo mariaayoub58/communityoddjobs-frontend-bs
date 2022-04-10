@@ -30,28 +30,40 @@ export default function CreateUser() {
           >
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="email" placeholder="Email Address" />
+                <Form.Control
+                  className="shadow"
+                  type="email"
+                  placeholder="Email Address"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control
+                  className="shadow"
+                  type="password"
+                  placeholder="Password"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasiccontact">
-                <Form.Control type="number" placeholder="Contact number" />
+                <Form.Control
+                  className="shadow"
+                  type="number"
+                  placeholder="Contact number"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicline1">
-                <Form.Control placeholder="Address Line" />
+                <Form.Control className="shadow" placeholder="Address Line" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicState">
-                <Form.Control placeholder="State" />
+                <Form.Control className="shadow" placeholder="State" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCity">
-                <Form.Control placeholder="City" />
+                <Form.Control className="shadow" placeholder="City" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCountry">
-                <Form.Control placeholder="Country" />
+                <Form.Control className="shadow" placeholder="Country" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicZip">
-                <Form.Control placeholder="Zip" />
+                <Form.Control className="shadow" placeholder="Zip" />
               </Form.Group>
               <Button type="submit">Submit</Button>
             </Form>

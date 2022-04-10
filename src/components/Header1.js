@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import "../Style.css";
 
-export default function Header() {
+export default function Header1() {
   return (
     <Navbar expand="lg" dark="true">
       <Container fluid>
@@ -11,10 +11,7 @@ export default function Header() {
             Home
           </Nav.Link>
           <Nav.Link href="#home" style={{ color: "white" }}>
-            Users
-          </Nav.Link>
-          <Nav.Link href="#features" style={{ color: "white" }}>
-            Applications
+            Notifications
           </Nav.Link>
         </Nav>
       </Container>
