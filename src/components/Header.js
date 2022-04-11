@@ -28,7 +28,7 @@ export default function Header(props) {
           )}
         </Nav>
         <Nav className="ms-auto">
-          <Nav.Link href="/Login" style={{ color: "white" }}>
+          <Nav.Link onClick={() => { sessionStorage.removeItem("loggedInUser") }} href="/" style={{ color: "white" }}>
             Logout
           </Nav.Link>
         </Nav>
