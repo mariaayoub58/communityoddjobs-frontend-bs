@@ -1,6 +1,25 @@
 import env from "react-dotenv";
 import Axios from "axios";
 
+export const clearNotifications = (email, callback, error) => {
+  Axios({
+    method: "POST",
+    url: env.REACT_APP_API_URL + "/user/clearnotifications",
+    data: {
+      email
+    },
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  }).then((response) => {
+    if (response.status && response.status === 200) {
+      callback && callback(response.data);
+    }
+  }).catch((err) => {
+    error && error(err);
+  });
+};
+
 export const userLogin = (email, password, callback, error) => {
   Axios({
     method: "POST",
