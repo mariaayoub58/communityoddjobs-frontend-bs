@@ -104,10 +104,10 @@ export const retrieveJobListing = (payload, callback, error) => {
     });
 };
 
-export const applyJob = (payload, callback, error) => {
+export const applyJob = (listingId, payload, callback, error) => {
   Axios({
     method: "post",
-    url: env.REACT_APP_API_URL + "/listing/" + payload.id + "/apply",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId + "/apply",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",

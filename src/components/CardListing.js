@@ -9,7 +9,7 @@ export default function CardListing(props) {
       <Card.Header as="h5">{props.title}</Card.Header>
       <Card.Body>
         <Card.Text>{props.description}</Card.Text>
-        <Button className="shadow">{props.button}</Button>
+        <Button className="shadow" onClick={props.onApply && props.onApply}>{props.button}</Button>
       </Card.Body>
     </Card>
   );
