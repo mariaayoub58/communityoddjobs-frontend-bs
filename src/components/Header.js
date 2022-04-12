@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import "../Style.css";
 
 export default function Header(props) {
@@ -7,17 +7,19 @@ export default function Header(props) {
     <Navbar expand="lg" dark="true">
       <Container fluid>
         <Nav className="nav">
-          <Nav.Link href="/Home" style={{ color: "white" }}>
+          <Nav.Link href="/" style={{ color: "white" }}>
             Home
           </Nav.Link>
           {props.admin && props.admin ? (
             <>
-              <Nav.Link href="/CreateUser" style={{ color: "white" }}>
-                Users
-              </Nav.Link>
-              <Nav.Link href="/CreateJob" style={{ color: "white" }}>
-                Applications
-              </Nav.Link>
+              <NavDropdown title="Users" id="nav-dropdown">
+                <NavDropdown.Item href="/CreateUser" eventKey="4.1">Create User</NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.2">Manage User</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="Jobs" id="nav-dropdown">
+                <NavDropdown.Item href="/CreateJob" eventKey="4.1">Create Job</NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.2">Applications</NavDropdown.Item>
+              </NavDropdown>
             </>
           ) : (
             <>
