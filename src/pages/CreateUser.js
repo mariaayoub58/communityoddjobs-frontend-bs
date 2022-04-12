@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Container,
-  Button,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { Form, Container, Button, Col, Row } from "react-bootstrap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { saveUser } from "../controllers/UserActions";
@@ -28,44 +22,56 @@ export default function CreateUser() {
   const numberPattern = new RegExp(/^[0-9\b]+$/);
 
   const validateAndSaveUser = () => {
-    if (!userName.trim() || !line1.trim()
-      || !country.trim() || !state.trim() || !city.trim()
-      || !zip.trim() || !email.trim() || !password.trim() || !contact.trim()) {
+    if (
+      !userName.trim() ||
+      !line1.trim() ||
+      !country.trim() ||
+      !state.trim() ||
+      !city.trim() ||
+      !zip.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !contact.trim()
+    ) {
       ToastError("Please fill all required fields");
     } else {
-      if ((email && !emailPattern.test(email))) {
+      if (email && !emailPattern.test(email)) {
         ToastError("Please enter a valid email address");
         return;
       }
-      if ((contact && (!numberPattern.test(contact) || contact.length != 10))) {
+      if (contact && (!numberPattern.test(contact) || contact.length != 10)) {
         ToastError("Please enter a valid contact number");
         return;
       }
       let address = {
-        "line1": line1,
-        "city": city,
-        "state": state,
-        "country": country,
-        "zip": zip
-      }
+        line1: line1,
+        city: city,
+        state: state,
+        country: country,
+        zip: zip,
+      };
       let payload = {
-        "name": userName,
-        "email": email,
-        "password": password,
-        "contact": contact,
-        "address": address,
-      }
-      saveUser(payload, (data) => {
-        if (data.status === 'success') {
-          ToastSuccess("User Profile saved successfully");
-        } else {
-          ToastError(data.message);
+        name: userName,
+        email: email,
+        password: password,
+        contact: contact,
+        address: address,
+      };
+      saveUser(
+        payload,
+        (data) => {
+          if (data.status === "success") {
+            ToastSuccess("User Profile saved successfully");
+          } else {
+            ToastError(data.message);
+          }
+        },
+        (err) => {
+          ToastError("Unexpected error during User Profile Save");
         }
-      }, (err) => {
-        ToastError("Unexpected error during User Profile Save");
-      });
+      );
     }
-  }
+  };
 
   return (
     <>
@@ -73,7 +79,7 @@ export default function CreateUser() {
       <ToastContainer />
       <Container>
         <h1
-          style={{ color: "#6f42c1" }}
+          style={{ color: "#6f42c1", textShadow: "5px 5px 25px grey" }}
           className=" mt-5 p-3  text-center rounded"
         >
           Create Individual Profile
@@ -83,55 +89,79 @@ export default function CreateUser() {
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control
-                  className="shadow" value={userName}
-                  onChange={e => setUserName(e.target.value)}
+                  className="shadow"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                   type="email"
                   placeholder="Name"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control
-                  className="shadow" value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  className="shadow"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   placeholder="Email Address"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Control
-                  className="shadow" value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  className="shadow"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasiccontact">
                 <Form.Control
-                  className="shadow" value={contact}
-                  onChange={e => setContact(e.target.value)}
+                  className="shadow"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                   type="number"
                   placeholder="Contact number"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicline1">
-                <Form.Control className="shadow" value={line1}
-                  onChange={e => setLine1(e.target.value)} placeholder="Address Line" />
+                <Form.Control
+                  className="shadow"
+                  value={line1}
+                  onChange={(e) => setLine1(e.target.value)}
+                  placeholder="Address Line"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicState">
-                <Form.Control className="shadow" value={state}
-                  onChange={e => setState(e.target.value)} placeholder="State" />
+                <Form.Control
+                  className="shadow"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  placeholder="State"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCity">
-                <Form.Control className="shadow" value={city}
-                  onChange={e => setCity(e.target.value)} placeholder="City" />
+                <Form.Control
+                  className="shadow"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="City"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCountry">
-                <Form.Control className="shadow" value={country}
-                  onChange={e => setCountry(e.target.value)} placeholder="Country" />
+                <Form.Control
+                  className="shadow"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  placeholder="Country"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicZip">
-                <Form.Control className="shadow" value={zip}
-                  onChange={e => setZip(e.target.value)} placeholder="Zip" />
+                <Form.Control
+                  className="shadow"
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
+                  placeholder="Zip"
+                />
               </Form.Group>
               <Button onClick={validateAndSaveUser}>Save</Button>
             </Form>

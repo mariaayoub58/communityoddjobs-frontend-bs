@@ -8,7 +8,7 @@ import CardListing from "../components/CardListing";
 export default function () {
   return (
     <>
-      <Header />
+      <Header admin />
       <Container>
         <h1
           style={{ color: "#6f42c1", textShadow: "5px 5px 25px grey" }}
@@ -19,9 +19,11 @@ export default function () {
         <Row>
           <Col lg={10} md={6} sm={12} className="p-5 m-auto rounded-lg">
             <CardListing
+              admin
               title="Job Title"
               description="Job Description"
-              button="Apply"
+              update="Update"
+              delete="Delete"
             />
           </Col>
         </Row>

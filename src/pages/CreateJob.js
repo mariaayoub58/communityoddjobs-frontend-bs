@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Container,
-  Button,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { Form, Container, Button, Col, Row } from "react-bootstrap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { saveJobListing } from "../controllers/UserActions";
@@ -26,15 +20,25 @@ export default function CreateJob() {
   const numberPattern = new RegExp(/^[0-9\b]+$/);
 
   const validateAndSaveJobListing = () => {
-    if (!employerName.trim() || !employerEmail.trim() || !title.trim() ||
-      !location.trim() || !dateOfService || !ratePerHour.trim() || !description.trim()) {
+    if (
+      !employerName.trim() ||
+      !employerEmail.trim() ||
+      !title.trim() ||
+      !location.trim() ||
+      !dateOfService ||
+      !ratePerHour.trim() ||
+      !description.trim()
+    ) {
       ToastError("Please fill all required fields");
     } else {
       if (employerEmail && !emailPattern.test(employerEmail)) {
         ToastError("Please enter a valid Employer Email");
         return;
       }
-      if ((ratePerHour && (!numberPattern.test(ratePerHour) || ratePerHour.length == 0))) {
+      if (
+        ratePerHour &&
+        (!numberPattern.test(ratePerHour) || ratePerHour.length == 0)
+      ) {
         ToastError("Please enter a valid Rate Per Hour");
         return;
       }
@@ -51,7 +55,7 @@ export default function CreateJob() {
       saveJobListing(
         payload,
         (data) => {
-          if (data.status === 'success') {
+          if (data.status === "success") {
             ToastSuccess("Job List saved successfully");
           } else {
             ToastError(data.message);
@@ -62,7 +66,7 @@ export default function CreateJob() {
         }
       );
     }
-  }
+  };
 
   return (
     <>
@@ -70,7 +74,7 @@ export default function CreateJob() {
       <ToastContainer />
       <Container>
         <h1
-          style={{ color: "#6f42c1" }}
+          style={{ color: "#6f42c1", textShadow: "5px 5px 25px grey" }}
           className=" mt-5 p-3  text-center rounded"
         >
           Create Job
@@ -79,39 +83,62 @@ export default function CreateJob() {
           <Col lg={5} md={6} sm={12} className="p-5 m-auto rounded-lg">
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Control className="shadow" value={employerName}
-                  onChange={e => setEmployerName(e.target.value)} placeholder="Employer Name" />
+                <Form.Control
+                  className="shadow"
+                  value={employerName}
+                  onChange={(e) => setEmployerName(e.target.value)}
+                  placeholder="Employer Name"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control
-                  className="shadow" value={employerEmail}
-                  onChange={e => setEmployerEmail(e.target.value)}
+                  className="shadow"
+                  value={employerEmail}
+                  onChange={(e) => setEmployerEmail(e.target.value)}
                   type="email"
                   placeholder="Employer Email"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicJobTitle">
-                <Form.Control className="shadow" value={title}
-                  onChange={e => setTitle(e.target.value)} placeholder="Job Title" />
+                <Form.Control
+                  className="shadow"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Job Title"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicLocation">
-                <Form.Control className="shadow" value={location}
-                  onChange={e => setLocation(e.target.value)} placeholder="Location" />
+                <Form.Control
+                  className="shadow"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Location"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicDateofService">
                 <Form.Control
-                  className="shadow" value={dateOfService}
-                  type="date" onChange={e => setDateOfService(e.target.value)}
+                  className="shadow"
+                  value={dateOfService}
+                  type="date"
+                  onChange={(e) => setDateOfService(e.target.value)}
                   placeholder="Date of Service"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicHours">
-                <Form.Control className="shadow" value={ratePerHour}
-                  onChange={e => setRatePerHour(e.target.value)} placeholder="Rate Per Hour" />
+                <Form.Control
+                  className="shadow"
+                  value={ratePerHour}
+                  onChange={(e) => setRatePerHour(e.target.value)}
+                  placeholder="Rate Per Hour"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Control className="shadow" value={description}
-                  onChange={e => setDescription(e.target.value)} placeholder="Description" />
+                <Form.Control
+                  className="shadow"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Description"
+                />
               </Form.Group>
               <Button className="shadow" onClick={validateAndSaveJobListing}>
                 Save
