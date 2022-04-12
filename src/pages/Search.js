@@ -1,5 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  Button,
+  Container,
+  Row,
+  Col,
+  Icon,
+  InputGroup,
+  Form,
+  FormControl,
+} from "react-bootstrap";
 import "../Style.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -107,15 +117,25 @@ export default function () {
       <Header admin={user && user.admin} />
       <ToastContainer />
       <Container>
-        <h1
-          style={{ color: "#6f42c1" }}
-          className="mt-5 p-3  text-center rounded"
-        >
-          Job Listing
-        </h1>
         <Row>
+          <Col lg={10} md={6} sm={12} className="p-5 m-auto rounded-lg">
+            <InputGroup className="col-6 mt-5">
+              <FormControl
+                className="shadow"
+                value={search}
+                onChange={e => searchTyping(e)}
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="basic-addon2"
+              />
+              <Button className="shadow" variant="outline-secondary" id="button-addon2">
+                Search
+              </Button>
+            </InputGroup>
+          </Col>
+        </Row>
+        {/* <Row>
           <Col lg={10} md={6} sm={12} className="px-5 m-auto rounded-lg">
-
             <Form>
               <Form.Group className="" controlId="formBasicEmail">
                 <Form.Control
@@ -128,7 +148,7 @@ export default function () {
 
             </Form>
           </Col>
-        </Row>
+        </Row> */}
         {(listings && listings.length && listings.length > 0) ?
           listings.map((element) => {
             return (
@@ -137,6 +157,11 @@ export default function () {
                   <CardListing
                     title={element.title}
                     description={element.description}
+                    admin={user && user.admin}
+                    update={user && user.admin && "Update"}
+                    onUpdate={() => { }}
+                    delete={user && user.admin && "Delete"}
+                    onDelete={() => { }}
                     button="Apply"
                     onApply={() => applyClicked(element._id)}
                   />
