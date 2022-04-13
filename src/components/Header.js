@@ -12,12 +12,16 @@ export default function Header(props) {
           </Nav.Link>
           {props.admin && props.admin ? (
             <>
-              <NavDropdown title="Users" id="nav-dropdown">
-                <NavDropdown.Item href="/CreateUser" eventKey="4.1">Create User</NavDropdown.Item>
+              <NavDropdown title="Users" color="white" id="nav-dropdown">
+                <NavDropdown.Item href="/CreateUser" eventKey="4.1">
+                  Create User
+                </NavDropdown.Item>
                 <NavDropdown.Item eventKey="4.2">Manage User</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="Jobs" id="nav-dropdown">
-                <NavDropdown.Item href="/CreateJob" eventKey="4.1">Create Job</NavDropdown.Item>
+                <NavDropdown.Item href="/CreateJob" eventKey="4.1">
+                  Create Job
+                </NavDropdown.Item>
                 <NavDropdown.Item eventKey="4.2">Applications</NavDropdown.Item>
               </NavDropdown>
             </>
@@ -30,7 +34,13 @@ export default function Header(props) {
           )}
         </Nav>
         <Nav className="ms-auto">
-          <Nav.Link onClick={() => { sessionStorage.removeItem("loggedInUser") }} href="/" style={{ color: "white" }}>
+          <Nav.Link
+            onClick={() => {
+              sessionStorage.removeItem("loggedInUser");
+            }}
+            href="/"
+            style={{ color: "white" }}
+          >
             Logout
           </Nav.Link>
         </Nav>

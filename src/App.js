@@ -11,7 +11,11 @@ import EditJob from "./pages/EditJob";
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div
+        style={{
+          backgroundImage: `url("https://unsplash.com/photos/__ZMnefoI3k")`,
+        }}
+      >
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/Search" component={Search} />

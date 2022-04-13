@@ -17,9 +17,6 @@
   background-color: #673b9f;
 }
 
-body {
-  background-image: "url(${background})" !important;
-  background-repeat: "no-repeat" !important;
-  width: "250px" !important;
-  height: "250px" !important;
+#nav-dropdown {
+  color: white;
 }
