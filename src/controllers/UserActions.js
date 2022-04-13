@@ -183,3 +183,42 @@ export const rejectJob = (payload, callback, error) => {
       error && error(err);
     });
 };
+
+export const deleteJob = (listingId, payload, callback, error) => {
+  Axios({
+    method: "delete",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId + "/delete",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload,
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
+
+export const retrieveJob = (listingId, callback, error) => {
+  Axios({
+    method: "get",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    }
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};

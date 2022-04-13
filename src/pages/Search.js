@@ -15,7 +15,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CardListing from "../components/CardListing";
 
-import { retrieveJobListing, searchJob, applyJob } from "../controllers/UserActions"
+import { retrieveJobListing, searchJob, applyJob, deleteJob } from "../controllers/UserActions"
 import { ToastError, ToastSuccess } from "../service/toast/Toast";
 import { ToastContainer } from "react-toastify";
 
@@ -52,6 +52,28 @@ export default function () {
   var applyClicked = (listingId) => {
     if (user) {
       applyJob(listingId, { ...user }, (res) => {
+        if (res.status === "success") {
+          ToastSuccess(res.message)
+          searchListing(search)
+        } else if (res.status === "error") {
+          ToastError(res.message)
+        } else {
+          ToastError('Something went wrong')
+        }
+      }, (err) => {
+        ToastError('Internal error')
+      })
+    } else {
+      ToastError("Need to login first");
+    }
+  }
+
+  var deleteClicked = (listingId) => {
+    let payload = {
+      adminId: "624606e38d77a630d4c4e8f6"
+    };
+    if (user) {
+      deleteJob(listingId, payload, (res) => {
         if (res.status === "success") {
           ToastSuccess(res.message)
           searchListing(search)
@@ -158,10 +180,10 @@ export default function () {
                     title={element.title}
                     description={element.description}
                     admin={user && user.admin}
-                    update={user && user.admin && "Update"}
-                    onUpdate={() => { }}
+                    edit={user && user.admin && "Edit"}
+                    onEdit={() => { }}
                     delete={user && user.admin && "Delete"}
-                    onDelete={() => { }}
+                    onDelete={() => deleteClicked(element._id)}
                     button="Apply"
                     onApply={() => applyClicked(element._id)}
                   />

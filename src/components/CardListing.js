@@ -11,7 +11,7 @@ export default function CardListing(props) {
         <Card.Text>{props.description}</Card.Text>
         {props.admin && props.admin ? (
           <>
-            <Button className="shadow" onClick={props.onUpdate && props.onUpdate}>{props.update}</Button>
+            <Button className="shadow" onClick={props.onEdit && props.onEdit}>{props.edit}</Button>
             {"  "}
             <Button className="shadow" onClick={props.onDelete && props.onDelete}>{props.delete}</Button>
           </>
