@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Container, Button, Col, Row } from "react-bootstrap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { saveJobListing } from "../controllers/UserActions";
+import { editJob, saveJobListing } from "../controllers/UserActions";
 import { ToastError } from "../service/toast/Toast";
 import { ToastSuccess } from "../service/toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { retrieveJob } from "../controllers/UserActions"
+
 
 export default function CreateJob() {
   const [employerName, setEmployerName] = useState("");
@@ -16,8 +18,43 @@ export default function CreateJob() {
   const [dateOfService, setDateOfService] = useState("");
   const [ratePerHour, setRatePerHour] = useState("");
   const [description, setDescription] = useState("");
+  const [id, setId] = useState(null);
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const numberPattern = new RegExp(/^[0-9\b]+$/);
+
+  function getFormattedDate(dateFromDB) {
+    const yyyy = new Date(dateFromDB).getFullYear();
+    let mm = new Date(dateFromDB).getMonth() + 1; // Months start at 0!
+    let dd = new Date(dateFromDB).getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem("JobListingId")) {
+      retrieveJob(sessionStorage.getItem("JobListingId"), (res) => {
+        if (res.status === "success") {
+          setEmployerName(res.data.employerName);
+          setEmployerEmail(res.data.employerEmail);
+          setTitle(res.data.title);
+          setLocation(res.data.location);
+          setDateOfService(getFormattedDate(res.data.dateOfService));
+          setRatePerHour(res.data.ratePerHour);
+          setDescription(res.data.description);
+          setId(sessionStorage.getItem("JobListingId"));
+          sessionStorage.removeItem("JobListingId");
+        } else {
+          ToastError('Something went wrong')
+        }
+      },
+        (err) => {
+          ToastError('Internal error')
+        })
+    }
+  }, [])
 
   const validateAndSaveJobListing = () => {
     if (
@@ -26,7 +63,7 @@ export default function CreateJob() {
       !title.trim() ||
       !location.trim() ||
       !dateOfService ||
-      !ratePerHour.trim() ||
+      !ratePerHour.toString().trim() ||
       !description.trim()
     ) {
       ToastError("Please fill all required fields");
@@ -44,6 +81,7 @@ export default function CreateJob() {
       }
       let payload = {
         adminId: "624606e38d77a630d4c4e8f6", //TODO
+        _id: id,
         employerName: employerName,
         employerEmail: employerEmail,
         title: title,
@@ -52,19 +90,36 @@ export default function CreateJob() {
         ratePerHour: ratePerHour,
         description: description,
       };
-      saveJobListing(
-        payload,
-        (data) => {
-          if (data.status === "success") {
-            ToastSuccess("Job List saved successfully");
-          } else {
-            ToastError(data.message);
+      if (id) {
+        editJob(id,
+          payload,
+          (data) => {
+            if (data.status === "success") {
+              ToastSuccess("Job List updated successfully");
+            } else {
+              ToastError(data.message);
+            }
+          },
+          (err) => {
+            ToastError("Unexpected error during Job List Save");
           }
-        },
-        (err) => {
-          ToastError("Unexpected error during Job List Save");
-        }
-      );
+        );
+      } else {
+        saveJobListing(
+          payload,
+          (data) => {
+            if (data.status === "success") {
+              setId(data.data._id);
+              ToastSuccess("Job List saved successfully");
+            } else {
+              ToastError(data.message);
+            }
+          },
+          (err) => {
+            ToastError("Unexpected error during Job List Save");
+          }
+        );
+      }
     }
   };
 

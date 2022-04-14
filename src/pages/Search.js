@@ -14,6 +14,7 @@ import "../Style.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CardListing from "../components/CardListing";
+import { useHistory } from "react-router-dom";
 
 import { retrieveJobListing, searchJob, applyJob, deleteJob } from "../controllers/UserActions"
 import { ToastError, ToastSuccess } from "../service/toast/Toast";
@@ -26,6 +27,7 @@ export default function () {
   const [listings, setListings] = useState();
   const [search, setSearch] = useState("");
   const [searching, setSearching] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     setUser(JSON.parse(sessionStorage.getItem("loggedInUser")))
@@ -90,13 +92,17 @@ export default function () {
     }
   }
 
+  var editClicked = (listingId) => {
+    history.push("/CreateJob");
+    sessionStorage.setItem("JobListingId", listingId);
+  }
+
   var searchTyping = (e) => {
     var val = e.target.value
     setSearch(val)
     if (!searching) {
       setSearching(true)
       setTimeout(() => {
-        // console.log("e.target.value", e.target.value)
         searchJob({ searchString: e.target.value }, (res) => {
           if (res.status === "success") {
             setListings(res.data)
@@ -117,7 +123,6 @@ export default function () {
     if (!searching) {
       setSearching(true)
       setTimeout(() => {
-        // console.log("e.target.value", e.target.value)
         searchJob({ searchString: value }, (res) => {
           if (res.status === "success") {
             setListings(res.data)
@@ -181,7 +186,7 @@ export default function () {
                     description={element.description}
                     admin={user && user.admin}
                     edit={user && user.admin && "Edit"}
-                    onEdit={() => { }}
+                    onEdit={() => editClicked(element._id)}
                     delete={user && user.admin && "Delete"}
                     onDelete={() => deleteClicked(element._id)}
                     button="Apply"
