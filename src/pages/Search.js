@@ -103,7 +103,6 @@ export default function () {
     if (!searching) {
       setSearching(true)
       setTimeout(() => {
-        // console.log("e.target.value", e.target.value)
         searchJob({ searchString: e.target.value }, (res) => {
           if (res.status === "success") {
             setListings(res.data)
@@ -124,7 +123,6 @@ export default function () {
     if (!searching) {
       setSearching(true)
       setTimeout(() => {
-        // console.log("e.target.value", e.target.value)
         searchJob({ searchString: value }, (res) => {
           if (res.status === "success") {
             setListings(res.data)

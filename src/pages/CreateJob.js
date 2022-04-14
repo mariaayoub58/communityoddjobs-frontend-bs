@@ -22,6 +22,17 @@ export default function CreateJob() {
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const numberPattern = new RegExp(/^[0-9\b]+$/);
 
+  function getFormattedDate(dateFromDB) {
+    const yyyy = new Date(dateFromDB).getFullYear();
+    let mm = new Date(dateFromDB).getMonth() + 1; // Months start at 0!
+    let dd = new Date(dateFromDB).getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem("JobListingId")) {
       retrieveJob(sessionStorage.getItem("JobListingId"), (res) => {
@@ -30,7 +41,7 @@ export default function CreateJob() {
           setEmployerEmail(res.data.employerEmail);
           setTitle(res.data.title);
           setLocation(res.data.location);
-          setDateOfService(res.data.dateOfService);
+          setDateOfService(getFormattedDate(res.data.dateOfService));
           setRatePerHour(res.data.ratePerHour);
           setDescription(res.data.description);
           setId(sessionStorage.getItem("JobListingId"));
