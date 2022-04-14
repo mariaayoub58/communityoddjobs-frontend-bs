@@ -7,6 +7,7 @@ import CreateUser from "./pages/CreateUser";
 import CreateJob from "./pages/CreateJob";
 import Notifications from "./pages/Notifications";
 import EditJob from "./pages/EditJob";
+import UserList from "./pages/UserList";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/CreateJob" component={CreateJob} />
           <Route path="/Notifications" component={Notifications} />
           <Route path="/EditJob" component={EditJob} />
+          <Route path="/UserList" component={UserList} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
       </div>

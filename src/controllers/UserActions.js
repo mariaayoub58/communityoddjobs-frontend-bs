@@ -6,18 +6,20 @@ export const clearNotifications = (email, callback, error) => {
     method: "POST",
     url: env.REACT_APP_API_URL + "/user/clearnotifications",
     data: {
-      email
+      email,
     },
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
-  }).then((response) => {
-    if (response.status && response.status === 200) {
-      callback && callback(response.data);
-    }
-  }).catch((err) => {
-    error && error(err);
-  });
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
 };
 
 export const userLogin = (email, password, callback, error) => {
@@ -211,7 +213,65 @@ export const retrieveJob = (listingId, callback, error) => {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-    }
+    },
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
+export const retrieveUsers = (payload, callback, error) => {
+  Axios({
+    method: "post",
+    url: env.REACT_APP_API_URL + "/user/get",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload,
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
+
+export const deleteUser = (userId, payload, callback, error) => {
+  Axios({
+    method: "delete",
+    url: env.REACT_APP_API_URL + "/user/" + userId + "/delete",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload,
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
+export const searchUser = (payload, callback, error) => {
+  Axios({
+    method: "post",
+    url: env.REACT_APP_API_URL + "/user/search",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload,
   })
     .then((response) => {
       if (response.status && response.status === 200) {

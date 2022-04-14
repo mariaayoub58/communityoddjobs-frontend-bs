@@ -16,7 +16,9 @@ export default function Header(props) {
                 <NavDropdown.Item href="/CreateUser" eventKey="4.1">
                   Create User
                 </NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.2">Manage User</NavDropdown.Item>
+                <NavDropdown.Item href="/UserList" eventKey="4.2">
+                  Manage User
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="Jobs" id="nav-dropdown">
                 <NavDropdown.Item href="/CreateJob" eventKey="4.1">
