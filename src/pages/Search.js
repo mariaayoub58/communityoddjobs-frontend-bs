@@ -14,6 +14,7 @@ import "../Style.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CardListing from "../components/CardListing";
+import { useHistory } from "react-router-dom";
 
 import { retrieveJobListing, searchJob, applyJob, deleteJob } from "../controllers/UserActions"
 import { ToastError, ToastSuccess } from "../service/toast/Toast";
@@ -26,6 +27,7 @@ export default function () {
   const [listings, setListings] = useState();
   const [search, setSearch] = useState("");
   const [searching, setSearching] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     setUser(JSON.parse(sessionStorage.getItem("loggedInUser")))
@@ -88,6 +90,11 @@ export default function () {
     } else {
       ToastError("Need to login first");
     }
+  }
+
+  var editClicked = (listingId) => {
+    history.push("/CreateJob");
+    sessionStorage.setItem("JobListingId", listingId);
   }
 
   var searchTyping = (e) => {
@@ -181,7 +188,7 @@ export default function () {
                     description={element.description}
                     admin={user && user.admin}
                     edit={user && user.admin && "Edit"}
-                    onEdit={() => { }}
+                    onEdit={() => editClicked(element._id)}
                     delete={user && user.admin && "Delete"}
                     onDelete={() => deleteClicked(element._id)}
                     button="Apply"

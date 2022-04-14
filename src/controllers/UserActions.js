@@ -222,3 +222,23 @@ export const retrieveJob = (listingId, callback, error) => {
       error && error(err);
     });
 };
+
+export const editJob = (listingId, payload, callback, error) => {
+  Axios({
+    method: "put",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId + "/edit",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
