@@ -104,6 +104,26 @@ export const retrieveJobListing = (payload, callback, error) => {
     });
 };
 
+export const retrieveApplications = (payload, callback, error) => {
+  Axios({
+    method: "post",
+    url: env.REACT_APP_API_URL + "/listing/applications",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload,
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
+
 export const applyJob = (listingId, payload, callback, error) => {
   Axios({
     method: "post",
@@ -144,10 +164,10 @@ export const searchJob = (payload, callback, error) => {
     });
 };
 
-export const approveJob = (payload, callback, error) => {
+export const approveJob = (listingId, payload, callback, error) => {
   Axios({
     method: "post",
-    url: env.REACT_APP_API_URL + "/listing/" + payload.id + "/approve",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId + "/approve",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -164,10 +184,10 @@ export const approveJob = (payload, callback, error) => {
     });
 };
 
-export const rejectJob = (payload, callback, error) => {
+export const rejectJob = (listingId, payload, callback, error) => {
   Axios({
     method: "post",
-    url: env.REACT_APP_API_URL + "/listing/" + payload.id + "/reject",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId + "/reject",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
