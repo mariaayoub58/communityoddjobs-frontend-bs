@@ -22,7 +22,9 @@ export default function Header(props) {
                 <NavDropdown.Item href="/CreateJob" eventKey="4.1">
                   Create Job
                 </NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.2">Applications</NavDropdown.Item>
+                <NavDropdown.Item href="/Applications" eventKey="4.2">
+                  Applications
+                </NavDropdown.Item>
               </NavDropdown>
             </>
           ) : (
