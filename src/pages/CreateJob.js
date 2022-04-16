@@ -80,7 +80,6 @@ export default function CreateJob() {
         return;
       }
       let payload = {
-        adminId: "624606e38d77a630d4c4e8f6", //TODO
         _id: id,
         employerName: employerName,
         employerEmail: employerEmail,
@@ -88,11 +87,15 @@ export default function CreateJob() {
         location: location,
         dateOfService: dateOfService,
         ratePerHour: ratePerHour,
-        description: description,
+        description: description
+      }
+      let editPayload = {
+        adminId: "624606e38d77a630d4c4e8f6", //TODO
+        listing: payload
       };
       if (id) {
         editJob(id,
-          payload,
+          editPayload,
           (data) => {
             if (data.status === "success") {
               ToastSuccess("Job List updated successfully");

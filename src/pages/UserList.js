@@ -21,6 +21,7 @@ import {
 } from "../controllers/UserActions";
 import { ToastError, ToastSuccess } from "../service/toast/Toast";
 import { ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 export default function () {
   // let user;
@@ -28,6 +29,7 @@ export default function () {
   const [users, setUsers] = useState();
   const [search, setSearch] = useState("");
   const [searching, setSearching] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     setUser(JSON.parse(sessionStorage.getItem("loggedInUser")));
@@ -56,6 +58,11 @@ export default function () {
       </div>
     );
   };
+
+  var editClicked = (userId) => {
+    history.push("/CreateUser");
+    sessionStorage.setItem("UserId", userId);
+  }
 
   var deleteClicked = (userId) => {
     let payload = {
@@ -94,7 +101,7 @@ export default function () {
           { searchString: e.target.value },
           (res) => {
             if (res.status === "success") {
-              setUser(res.data);
+              setUsers(res.data);
             } else {
               ToastError("Something went wrong");
             }
@@ -160,28 +167,29 @@ export default function () {
         </Row>
         {users && users.length && users.length > 0
           ? users.map((element) => {
-              return (
-                <Row key={element._id}>
-                  <Col
-                    lg={10}
-                    md={6}
-                    sm={12}
-                    className="px-5 m-auto rounded-lg"
-                  >
-                    <UserCard
-                      name={element.name}
-                      email={element.email}
-                      contact={element.contact}
-                      admin={user && user.admin}
-                      edit={user && user.admin && "Edit"}
-                      onEdit={() => {}}
-                      delete={user && user.admin && "Delete"}
-                      onDelete={() => deleteClicked(element._id)}
-                    />
-                  </Col>
-                </Row>
-              );
-            })
+            return (
+              <Row key={element._id}>
+                <Col
+                  lg={10}
+                  md={6}
+                  sm={12}
+                  className="px-5 m-auto rounded-lg"
+                >
+                  <UserCard
+                    name={element.name}
+                    email={element.email}
+                    contact={element.contact}
+                    address={element.address}
+                    admin={user && user.admin}
+                    edit={user && user.admin && "Edit"}
+                    onEdit={() => editClicked(element._id)}
+                    delete={user && user.admin && "Delete"}
+                    onDelete={() => deleteClicked(element._id)}
+                  />
+                </Col>
+              </Row>
+            );
+          })
           : renderNothing()}
       </Container>
       <div className="my-4"></div>

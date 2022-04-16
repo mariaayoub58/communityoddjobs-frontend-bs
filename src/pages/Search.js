@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-  Card,
   Button,
   Container,
   Row,
   Col,
-  Icon,
   InputGroup,
-  Form,
   FormControl,
 } from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal'
 import "../Style.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -21,8 +19,9 @@ import { ToastError, ToastSuccess } from "../service/toast/Toast";
 import { ToastContainer } from "react-toastify";
 
 export default function () {
-
-  // let user;
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [user, setUser] = useState();
   const [listings, setListings] = useState();
   const [search, setSearch] = useState("");
@@ -52,10 +51,11 @@ export default function () {
   }
 
   var applyClicked = (listingId) => {
+    debugger;
     if (user) {
       applyJob(listingId, { ...user }, (res) => {
         if (res.status === "success") {
-          ToastSuccess(res.message)
+          handleShow();
           searchListing(search)
         } else if (res.status === "error") {
           ToastError(res.message)
@@ -142,6 +142,19 @@ export default function () {
   return (
     <>
       <Header admin={user && user.admin} />
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Application Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Your job application has been sent to the Admin Approval, check Notifications page for further updates.
+        </Modal.Body>
+      </Modal>
       <ToastContainer />
       <Container>
         <Row>
@@ -161,29 +174,17 @@ export default function () {
             </InputGroup>
           </Col>
         </Row>
-        {/* <Row>
-          <Col lg={10} md={6} sm={12} className="px-5 m-auto rounded-lg">
-            <Form>
-              <Form.Group className="" controlId="formBasicEmail">
-                <Form.Control
-                  className="shadow" value={search}
-                  onChange={e => searchTyping(e)}
-                  type="email"
-                  placeholder="Name"
-                />
-              </Form.Group>
-
-            </Form>
-          </Col>
-        </Row> */}
         {(listings && listings.length && listings.length > 0) ?
           listings.map((element) => {
             return (
               <Row key={element._id}>
                 <Col lg={10} md={6} sm={12} className="px-5 m-auto rounded-lg">
                   <CardListing
+                    employerEmail={element.employerEmail}
                     title={element.title}
                     description={element.description}
+                    dateOfService={element.dateOfService}
+                    ratePerHour={element.ratePerHour}
                     admin={user && user.admin}
                     edit={user && user.admin && "Edit"}
                     onEdit={() => editClicked(element._id)}

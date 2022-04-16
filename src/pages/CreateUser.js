@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Container, Button, Col, Row } from "react-bootstrap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { saveUser } from "../controllers/UserActions";
+import { saveUser, editUser, retrieveUser } from "../controllers/UserActions";
 import { ToastError } from "../service/toast/Toast";
 import { ToastSuccess } from "../service/toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,8 +18,37 @@ export default function CreateUser() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [zip, setZip] = useState("");
+  const [id, setId] = useState("");
+  const [addressId, setAddressId] = useState("");
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const numberPattern = new RegExp(/^[0-9\b]+$/);
+
+
+  useEffect(() => {
+    if (sessionStorage.getItem("UserId")) {
+      retrieveUser(sessionStorage.getItem("UserId"), (res) => {
+        if (res.status === "success") {
+          setUserName(res.data.name);
+          setEmail(res.data.email);
+          setPassword(res.data.password);
+          setContact(res.data.contact);
+          setLine1(res.data.address.line1);
+          setState(res.data.address.state);
+          setCity(res.data.address.city);
+          setCountry(res.data.address.country);
+          setZip(res.data.address.zip);
+          setAddressId(res.data.address._id);
+          setId(sessionStorage.getItem("UserId"));
+          sessionStorage.removeItem("UserId");
+        } else {
+          ToastError('Something went wrong')
+        }
+      },
+        (err) => {
+          ToastError('Internal error')
+        })
+    }
+  }, [])
 
   const validateAndSaveUser = () => {
     if (
@@ -31,7 +60,7 @@ export default function CreateUser() {
       !zip.trim() ||
       !email.trim() ||
       !password.trim() ||
-      !contact.trim()
+      !contact.toString().trim()
     ) {
       ToastError("Please fill all required fields");
     } else {
@@ -39,37 +68,61 @@ export default function CreateUser() {
         ToastError("Please enter a valid email address");
         return;
       }
-      if (contact && (!numberPattern.test(contact) || contact.length != 10)) {
+      if (contact && (!numberPattern.test(contact.toString()))) {
         ToastError("Please enter a valid contact number");
         return;
       }
       let address = {
+        _id: addressId,
         line1: line1,
         city: city,
         state: state,
         country: country,
         zip: zip,
       };
+
       let payload = {
+        _id: id,
         name: userName,
         email: email,
         password: password,
         contact: contact,
-        address: address,
+        address: address
       };
-      saveUser(
-        payload,
-        (data) => {
-          if (data.status === "success") {
-            ToastSuccess("User Profile saved successfully");
-          } else {
-            ToastError(data.message);
+      let editPayload = {
+        adminId: "624606e38d77a630d4c4e8f6", //TODO
+        user: payload,
+      };
+
+      if (id) {
+        editUser(id,
+          editPayload,
+          (data) => {
+            if (data.status === "success") {
+              ToastSuccess("User updated successfully");
+            } else {
+              ToastError(data.message);
+            }
+          },
+          (err) => {
+            ToastError("Unexpected error during User Save");
           }
-        },
-        (err) => {
-          ToastError("Unexpected error during User Profile Save");
-        }
-      );
+        );
+      } else {
+        saveUser(
+          payload,
+          (data) => {
+            if (data.status === "success") {
+              ToastSuccess("User Profile saved successfully");
+            } else {
+              ToastError(data.message);
+            }
+          },
+          (err) => {
+            ToastError("Unexpected error during User Profile Save");
+          }
+        );
+      }
     }
   };
 

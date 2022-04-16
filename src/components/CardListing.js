@@ -8,7 +8,10 @@ export default function CardListing(props) {
     <Card className="my-3 shadow">
       <Card.Header as="h5">{props.title}</Card.Header>
       <Card.Body>
-        <Card.Text>{props.description}</Card.Text>
+        <Card.Text><b>Employer Email:</b> {props.employerEmail}</Card.Text>
+        <Card.Text><b>Date of Service:</b> {props.dateOfService}</Card.Text>
+        <Card.Text><b>Job Description:</b> {props.description}</Card.Text>
+        <Card.Text><b>Rate Per Hour:</b> {props.ratePerHour}</Card.Text>
         {props.admin && props.admin ? (
           <>
             <Button className="shadow" onClick={props.onEdit && props.onEdit}>{props.edit}</Button>

@@ -244,6 +244,26 @@ export const retrieveJob = (listingId, callback, error) => {
       error && error(err);
     });
 };
+
+export const retrieveUser = (userId, callback, error) => {
+  Axios({
+    method: "get",
+    url: env.REACT_APP_API_URL + "/user/" + userId,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+};
+
 export const retrieveUsers = (payload, callback, error) => {
   Axios({
     method: "post",
@@ -302,3 +322,43 @@ export const searchUser = (payload, callback, error) => {
       error && error(err);
     });
 };
+
+export const editJob = (listingId, payload, callback, error) => {
+  Axios({
+    method: "put",
+    url: env.REACT_APP_API_URL + "/listing/" + listingId + "/edit",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+}
+
+export const editUser = (userId, payload, callback, error) => {
+  Axios({
+    method: "put",
+    url: env.REACT_APP_API_URL + "/user/" + userId + "/edit",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data: payload
+  })
+    .then((response) => {
+      if (response.status && response.status === 200) {
+        callback && callback(response.data);
+      }
+    })
+    .catch((err) => {
+      error && error(err);
+    });
+}

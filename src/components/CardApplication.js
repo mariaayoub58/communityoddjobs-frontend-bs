@@ -8,8 +8,8 @@ export default function CardApplication(props) {
         <Card className="my-3 shadow">
             <Card.Header as="h5">{props.title}</Card.Header>
             <Card.Body>
-                <Card.Text>{props.description}</Card.Text>
-                {props.applicant && <Card.Text>Applicant: {props.applicant}</Card.Text>}
+                <Card.Text><b>Job Description:</b> {props.description}</Card.Text>
+                {props.applicant && <Card.Text><b>Applicant:</b> {props.applicant}</Card.Text>}
                 <Button className="shadow" onClick={props.onReject && props.onReject}>{props.reject}</Button>
                 {"  "}
                 <Button className="shadow" onClick={props.onApprove && props.onApprove}>{props.approve}</Button>

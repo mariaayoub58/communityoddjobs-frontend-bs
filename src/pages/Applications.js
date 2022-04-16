@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-    Card,
     Button,
     Container,
     Row,
     Col,
-    Icon,
     InputGroup,
-    Form,
     FormControl,
 } from "react-bootstrap";
 import "../Style.css";
