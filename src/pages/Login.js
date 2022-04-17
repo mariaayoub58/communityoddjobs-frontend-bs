@@ -26,8 +26,8 @@ export default function Login() {
       password,
       (res) => {
         if (res.status === "success") {
-          history.push("/Search");
           sessionStorage.setItem("loggedInUser", JSON.stringify(res.data));
+          history.push("/Search");
         }
       },
       (err) => {
