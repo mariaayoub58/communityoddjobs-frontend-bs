@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
     Button,
     Container,
@@ -6,6 +6,7 @@ import {
     Col,
     InputGroup,
     FormControl,
+    FormLabel,
 } from "react-bootstrap";
 import "../Style.css";
 import Header from "../components/Header";
@@ -23,6 +24,8 @@ export default function () {
     const [listings, setListings] = useState();
     const [search, setSearch] = useState("");
     const [searching, setSearching] = useState(false);
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
 
     useEffect(() => {
         setUser(JSON.parse(sessionStorage.getItem("loggedInUser")))
@@ -94,36 +97,25 @@ export default function () {
         }
     }
 
+    useEffect(() => {
+        searchTyping(search, fromDate, toDate)
+    }, [search, fromDate, toDate])
 
-    var deleteClicked = (listingId) => {
-        let payload = {
-            adminId: "624606e38d77a630d4c4e8f6"
-        };
-        if (user) {
-            deleteJob(listingId, payload, (res) => {
-                if (res.status === "success") {
-                    ToastSuccess(res.message)
-                    searchListing(search)
-                } else if (res.status === "error") {
-                    ToastError(res.message)
-                } else {
-                    ToastError('Something went wrong')
-                }
-            }, (err) => {
-                ToastError('Internal error')
-            })
-        } else {
-            ToastError("Need to login first");
+    var searchTyping = (value, from, to) => {
+        var query = { searchString: value };
+        if (from !== "") {
+            query.startDate = from;
+            setFromDate(from);
         }
-    }
-
-    var searchTyping = (e) => {
-        var val = e.target.value
-        setSearch(val)
+        if (to !== "") {
+            query.stopDate = to;
+            setToDate(to);
+        }
+        setSearch(value)
         if (!searching) {
             setSearching(true)
             setTimeout(() => {
-                retrieveApplications({ searchString: e.target.value }, (res) => {
+                retrieveApplications(query, (res) => {
                     if (res.status === "success") {
                         setListings(res.data)
                     } else {
@@ -165,21 +157,59 @@ export default function () {
             <ToastContainer />
             <Container>
                 <Row>
-                    <Col lg={10} md={6} sm={12} className="p-5 m-auto rounded-lg">
+                    <Col lg={10} md={6} sm={12} className="px-5 m-auto rounded-lg">
                         <InputGroup className="col-6 mt-5">
                             <FormControl
                                 className="shadow"
                                 value={search}
-                                onChange={e => searchTyping(e)}
+                                onChange={e => setSearch(e.target.value)}
                                 placeholder="Search"
                                 aria-label="Search"
                                 aria-describedby="basic-addon2"
                             />
-                            <Button className="shadow" variant="outline-secondary" id="button-addon2">
+                            <Button onClick={() => searchTyping(search, fromDate, toDate)} className="shadow" variant="outline-secondary" id="button-addon2">
                                 Search
                             </Button>
                         </InputGroup>
                     </Col>
+                </Row>
+                <Row>
+                    <Col lg={1} md={3} sm={12} className="px-1 rounded-lg" />
+                    <Col lg={5} md={3} sm={12} className="px-5 rounded-lg">
+                        <InputGroup className="mt-3">
+                            <FormLabel className="col-12">From: </FormLabel>
+                            <FormControl
+                                className="shadow col-12"
+                                type="date"
+                                value={fromDate}
+                                onChange={(e) => setFromDate(e.target.value)}
+                                placeholder="From date"
+                                aria-label="From date"
+                                aria-describedby="basic-addon2"
+                            />
+                            {fromDate !== "" && <Button onClick={() => setFromDate("")} className="shadow" variant="outline-secondary" id="button-addon2">
+                                Clear
+                            </Button>}
+                        </InputGroup>
+                    </Col>
+                    <Col lg={5} md={3} sm={12} className="px-5 rounded-lg">
+                        <InputGroup className="mt-3">
+                            <FormLabel className="col-12">To: </FormLabel>
+                            <FormControl
+                                className="shadow col-12"
+                                type="date"
+                                value={toDate}
+                                onChange={(e) => setToDate(e.target.value)}
+                                placeholder="To date"
+                                aria-label="To date"
+                                aria-describedby="basic-addon2"
+                            />
+                            {toDate !== "" && <Button onClick={() => setToDate("")} className="shadow" variant="outline-secondary" id="button-addon2">
+                                Clear
+                            </Button>}
+                        </InputGroup>
+                    </Col>
+                    <Col lg={1} md={3} sm={12} className="px-1 rounded-lg" />
                 </Row>
                 {(listings && listings.length && listings.length > 0) ?
                     listings.map((element) => {
