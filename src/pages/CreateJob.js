@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Container, Button, Col, Row } from "react-bootstrap";
+import { Form, Container, Button, Col, Row, Badge } from "react-bootstrap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { editJob, saveJobListing } from "../controllers/UserActions";
@@ -18,6 +18,8 @@ export default function CreateJob() {
   const [dateOfService, setDateOfService] = useState("");
   const [ratePerHour, setRatePerHour] = useState("");
   const [description, setDescription] = useState("");
+  const [metaTags, setMetaTags] = useState([]);
+  const [metaTagString, setMetaTagString] = useState("");
   const [id, setId] = useState(null);
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const numberPattern = new RegExp(/^[0-9\b]+$/);
@@ -44,6 +46,7 @@ export default function CreateJob() {
           setDateOfService(getFormattedDate(res.data.dateOfService));
           setRatePerHour(res.data.ratePerHour);
           setDescription(res.data.description);
+          setMetaTags(res.data.metaTags.length > 0 ? res.data.metaTags.split(",") : [])
           setId(sessionStorage.getItem("JobListingId"));
           sessionStorage.removeItem("JobListingId");
         } else {
@@ -87,7 +90,8 @@ export default function CreateJob() {
         location: location,
         dateOfService: dateOfService,
         ratePerHour: ratePerHour,
-        description: description
+        description: description,
+        metaTags: metaTags.toString()
       }
       let editPayload = {
         adminId: "624606e38d77a630d4c4e8f6", //TODO
@@ -125,6 +129,15 @@ export default function CreateJob() {
       }
     }
   };
+
+  const metaTagsTyped = (e) => {
+    var string = e.target.value
+    setMetaTagString(string);
+    if (string.includes(" ")) {
+      setMetaTagString("")
+      setMetaTags([...metaTags, string.toLowerCase().trim()])
+    }
+  }
 
   return (
     <>
@@ -197,6 +210,32 @@ export default function CreateJob() {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Description"
                 />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicDescription">
+                <Form.Control
+                  className="shadow"
+                  value={metaTagString}
+                  onChange={(e) => metaTagsTyped(e)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      setMetaTagString("")
+                      setMetaTags([...metaTags, e.target.value.toLowerCase().trim()])
+                    }
+                  }}
+                  placeholder="Meta tags (space seperated)"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicDescription">
+                {metaTags && metaTags.map((el, i) => (<Badge pill key={i} bg="secondary" className="mx-1 my-1">
+                  {el}<Button onClick={() => {
+                    setMetaTags(prev => {
+                      return [
+                        ...prev.slice(0, i),
+                        ...prev.slice(i + 1)
+                      ]
+                    })
+                  }} variant="secondary" className="mx-1 px-1 py-0">x</Button>
+                </Badge>))}
               </Form.Group>
               <Button className="shadow" onClick={validateAndSaveJobListing}>
                 Save

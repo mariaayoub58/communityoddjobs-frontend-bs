@@ -3,10 +3,28 @@
   background-color: #3aa484;
   border-color: #3aa484;
 }
+
 .btn-primary:hover {
   color: #fff;
   background-color: #673b9f;
   border-color: #673b9f;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #9555E7;
+  border-color: #9555E7;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #3AA484;
+  border-color: #3AA484;
+}
+
+.bg-secondary {
+  background-color: #9555E7 !important;
+  border-color: #9555E7;
 }
 
 .bg {
