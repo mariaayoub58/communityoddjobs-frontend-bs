@@ -7,8 +7,10 @@ import { ToastError } from "../service/toast/Toast";
 import { ToastSuccess } from "../service/toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 export default function CreateUser() {
+  const history = useHistory();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -73,24 +75,29 @@ export default function CreateUser() {
         return;
       }
       let address = {
-        _id: addressId,
         line1: line1,
         city: city,
         state: state,
         country: country,
         zip: zip,
       };
-
+      if (addressId != "" && addressId != null) {
+        address._id = addressId;
+      }
+      let adminId = JSON.parse(sessionStorage.getItem("loggedInUser"))._id;
       let payload = {
-        _id: id,
+        adminId: adminId,
         name: userName,
         email: email,
         password: password,
         contact: contact,
         address: address
       };
+      if (id != "" && id != null) {
+        payload._id = id;
+      }
       let editPayload = {
-        adminId: "624606e38d77a630d4c4e8f6", //TODO
+        adminId: adminId,
         user: payload,
       };
 
@@ -100,6 +107,7 @@ export default function CreateUser() {
           (data) => {
             if (data.status === "success") {
               ToastSuccess("User updated successfully");
+              history.push("/UserList");
             } else {
               ToastError(data.message);
             }
@@ -114,6 +122,7 @@ export default function CreateUser() {
           (data) => {
             if (data.status === "success") {
               ToastSuccess("User Profile saved successfully");
+              history.push("/UserList");
             } else {
               ToastError(data.message);
             }

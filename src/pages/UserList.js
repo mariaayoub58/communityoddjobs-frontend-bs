@@ -32,9 +32,10 @@ export default function () {
   const history = useHistory();
 
   useEffect(() => {
-    setUser(JSON.parse(sessionStorage.getItem("loggedInUser")));
+    var tmpUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+    setUser(tmpUser);
     let payload = {
-      adminId: "624606e38d77a630d4c4e8f6",
+      adminId: tmpUser._id,
     };
     retrieveUsers(
       payload,
@@ -66,7 +67,7 @@ export default function () {
 
   var deleteClicked = (userId) => {
     let payload = {
-      adminId: "624606e38d77a630d4c4e8f6",
+      adminId: user._id,
     };
     if (user) {
       deleteUser(

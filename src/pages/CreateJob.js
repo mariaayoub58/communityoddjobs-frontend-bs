@@ -8,9 +8,10 @@ import { ToastSuccess } from "../service/toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { retrieveJob } from "../controllers/UserActions"
-
+import { useHistory } from "react-router-dom";
 
 export default function CreateJob() {
+  const history = useHistory();
   const [employerName, setEmployerName] = useState("");
   const [employerEmail, setEmployerEmail] = useState("");
   const [title, setTitle] = useState("");
@@ -82,9 +83,9 @@ export default function CreateJob() {
         ToastError("Please enter a valid Rate Per Hour");
         return;
       }
+      let adminId = JSON.parse(sessionStorage.getItem("loggedInUser"))._id;
       let payload = {
-        adminId: "624606e38d77a630d4c4e8f6", //TODO
-        _id: id,
+        adminId: adminId,
         employerName: employerName,
         employerEmail: employerEmail,
         title: title,
@@ -94,8 +95,11 @@ export default function CreateJob() {
         description: description,
         metaTags: metaTags.toString()
       }
+      if (id != "" && id != null) {
+        payload._id = id;
+      }
       let editPayload = {
-        adminId: "624606e38d77a630d4c4e8f6", //TODO
+        adminId: adminId,
         listing: payload
       };
       if (id) {
@@ -104,6 +108,7 @@ export default function CreateJob() {
           (data) => {
             if (data.status === "success") {
               ToastSuccess("Job List updated successfully");
+              history.push("/Search");
             } else {
               ToastError(data.message);
             }
@@ -119,6 +124,7 @@ export default function CreateJob() {
             if (data.status === "success") {
               setId(data.data._id);
               ToastSuccess("Job List saved successfully");
+              history.push("/Search");
             } else {
               ToastError(data.message);
             }

@@ -72,7 +72,7 @@ export default function () {
 
   var deleteClicked = (listingId) => {
     let payload = {
-      adminId: "624606e38d77a630d4c4e8f6"
+      adminId: user._id
     };
     if (user) {
       deleteJob(listingId, payload, (res) => {
