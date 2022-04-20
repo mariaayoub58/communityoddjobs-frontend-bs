@@ -182,6 +182,8 @@ export default function () {
                   <CardListing
                     employerEmail={element.employerEmail}
                     title={element.title}
+                    metaTags={element.metaTags}
+                    location={element.location}
                     description={element.description}
                     dateOfService={element.dateOfService}
                     ratePerHour={element.ratePerHour}

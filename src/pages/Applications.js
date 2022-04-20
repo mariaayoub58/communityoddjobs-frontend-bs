@@ -219,6 +219,9 @@ export default function () {
                                     <CardApplication
                                         title={element.title}
                                         description={element.description}
+                                        metaTags={element.metaTags}
+                                        location={element.location}
+                                        dateOfService={element.dateOfService}
                                         applicant={element.applicant && element.applicant.name}
                                         reject="Reject"
                                         onReject={() => rejectClicked(element._id)}

@@ -12,6 +12,8 @@ export default function CardListing(props) {
         <Card.Text><b>Date of Service:</b> {props.dateOfService}</Card.Text>
         <Card.Text><b>Job Description:</b> {props.description}</Card.Text>
         <Card.Text><b>Rate Per Hour:</b> {props.ratePerHour}</Card.Text>
+        <Card.Text><b>Meta Tags:</b> {props.metaTags}</Card.Text>
+        <Card.Text><b>Location:</b> {props.location}</Card.Text>
         {props.admin && props.admin ? (
           <>
             <Button className="shadow" onClick={props.onEdit && props.onEdit}>{props.edit}</Button>
