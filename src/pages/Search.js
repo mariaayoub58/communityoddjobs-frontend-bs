@@ -102,40 +102,36 @@ export default function () {
     setSearch(val)
     if (!searching) {
       setSearching(true)
-      setTimeout(() => {
-        searchJob({ searchString: e.target.value }, (res) => {
-          if (res.status === "success") {
-            setListings(res.data)
-          } else {
-            ToastError('Something went wrong')
-          }
-        },
-          (err) => {
-            ToastError('Internal error')
-          })
+      searchJob({ searchString: e.target.value }, (res) => {
+        if (res.status === "success") {
+          setListings(res.data)
+        } else {
+          ToastError('Something went wrong')
+        }
+      },
+        (err) => {
+          ToastError('Internal error')
+        })
 
-        setSearching(false);
-      }, 1000)
+      setSearching(false);
     }
   }
 
   var searchListing = (value) => {
     if (!searching) {
       setSearching(true)
-      setTimeout(() => {
-        searchJob({ searchString: value }, (res) => {
-          if (res.status === "success") {
-            setListings(res.data)
-          } else {
-            ToastError('Something went wrong')
-          }
-        },
-          (err) => {
-            ToastError('Internal error')
-          })
+      searchJob({ searchString: value }, (res) => {
+        if (res.status === "success") {
+          setListings(res.data)
+        } else {
+          ToastError('Something went wrong')
+        }
+      },
+        (err) => {
+          ToastError('Internal error')
+        })
 
-        setSearching(false);
-      }, 1000)
+      setSearching(false);
     }
   }
 

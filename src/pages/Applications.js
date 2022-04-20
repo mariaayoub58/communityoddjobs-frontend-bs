@@ -114,20 +114,18 @@ export default function () {
         setSearch(value)
         if (!searching) {
             setSearching(true)
-            setTimeout(() => {
-                retrieveApplications(query, (res) => {
-                    if (res.status === "success") {
-                        setListings(res.data)
-                    } else {
-                        ToastError('Something went wrong')
-                    }
-                },
-                    (err) => {
-                        ToastError('Internal error')
-                    })
+            retrieveApplications(query, (res) => {
+                if (res.status === "success") {
+                    setListings(res.data)
+                } else {
+                    ToastError('Something went wrong')
+                }
+            },
+                (err) => {
+                    ToastError('Internal error')
+                })
 
-                setSearching(false);
-            }, 1000)
+            setSearching(false);
         }
     }
 
